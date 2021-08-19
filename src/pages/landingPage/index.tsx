@@ -1,6 +1,6 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
-import { Alert, Spin, message } from 'antd';
+import { Alert, Spin } from 'antd';
 import { LoadingOutlined } from '@ant-design/icons';
 import socket from '../../utils/config/socket';
 import MainMenu from '../mainMenu';
