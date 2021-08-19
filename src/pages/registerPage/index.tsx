@@ -30,7 +30,7 @@ const LoginPage = (props: LoginPageProps) => {
 
 
     return (
-  <div className="login-wrapper">
+  <div className="register-wrapper">
     <Form
       name="normal_login"
       className="login-form"
