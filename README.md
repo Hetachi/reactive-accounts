@@ -1,5 +1,5 @@
+[![CI/CD](https://github.com/Hetachi/reactive-accounts/actions/workflows/main.yml/badge.svg)](https://github.com/Hetachi/reactive-accounts/actions/workflows/main.yml)
 # JS ACCOUNT SYSTEM TEMPLATE USING MYSQL, WITH FE OF REACT + TS + PHASER CANVAS
-
 
 ## FEATURE LIST
 
