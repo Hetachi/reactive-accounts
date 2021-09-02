@@ -3,6 +3,7 @@ import { Alert, Menu } from 'antd';
 import { Typography } from 'antd';
 import LoginPage from '../loginPage';
 import RegisterPage from '../registerPage';
+import socket from '../../utils/config/socket';
 import './styles.scss';
 
 const { Title } = Typography;
@@ -11,7 +12,9 @@ const MainMenu = () => {
 
   const [ loginError, setLoginError ] = useState('')
   const [ registerError, setRegisterError] = useState('')
-  const [ loginFormVisible, setLoginFormVisible ] = useState('login')
+  const [ visibleForm, setVisibleForm ] = useState('login')
+
+  socket.on('accountCreated', () => setVisibleForm('login'))
 
   return (
     <div>
@@ -32,7 +35,7 @@ const MainMenu = () => {
             defaultSelectedKeys={['login']}
             mode={'horizontal'}
             theme={'dark'}
-            onClick={item => setLoginFormVisible(item.key)}
+            onClick={item => setVisibleForm(item.key)}
           >
             <Menu.Item key="login">
               Login
@@ -44,7 +47,7 @@ const MainMenu = () => {
         </div>
         <div>
           {
-          loginFormVisible === 'login' ?
+          visibleForm === 'login' ?
             <div className="main-menu__login-container">
               <Title level={3}>Please enter your login information!</Title>
               <LoginPage setLoginError={setLoginError} />

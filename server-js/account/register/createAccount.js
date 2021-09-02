@@ -53,6 +53,7 @@ module.exports = (username, password, email, socket) => {
       if(!accountExists) {
         executeMysqlQuery(createNewAccountSql, values, (results) => {
           console.log("New account created: "+username)
+          socket.emit('accountCreated', {username, email})
           return results
         })
         console.log('Attempted to create a new user account for: '+username)
