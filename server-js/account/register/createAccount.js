@@ -1,4 +1,4 @@
-const mysqlPool = require('../../mysql/mysqlConfig')
+const executeMysqlQuery = require('../../mysql/executeMysqlQuery')
 const checkIfAccountAlreadyExists = require('../validation/checkIfAccountAlreadyExists')
 
 module.exports = (username, password, email, socket) => {
@@ -46,11 +46,12 @@ module.exports = (username, password, email, socket) => {
     ]
 
 
+
+
     checkIfAccountAlreadyExists(username, email).then(accountExists => {
       console.log('Does account exist ====> ' + accountExists)
       if(!accountExists) {
-        mysqlPool.query(createNewAccountSql, values, (error, results, fields) => {
-          if (error) throw error
+        executeMysqlQuery(createNewAccountSql, values, (results) => {
           console.log("New account created: "+username)
           return results
         })

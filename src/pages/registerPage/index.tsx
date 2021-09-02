@@ -1,11 +1,11 @@
 import React from 'react';
-import { Form, Input, Button, Checkbox } from 'antd';
+import { Form, Input, Button } from 'antd';
 import socket from '../../utils/config/socket';
 import userRegister from '../../utils/userRegister';
 import './styles.scss';
 
 interface LoginPageProps {
-    setLoginError: React.Dispatch<React.SetStateAction<string>>
+  setRegisterError: React.Dispatch<React.SetStateAction<string>>
 }
 
 const LoginPage = (props: LoginPageProps) => {
@@ -23,9 +23,9 @@ const LoginPage = (props: LoginPageProps) => {
         console.log('Failed:', errorInfo);
       };
     
-      socket.on('incorrectLoginData', ()=>{ 
-        console.log('incorrectLoginData')
-        props.setLoginError('Information you provided is incorrect please re-check your email and password and try again!')
+      socket.on('accountExistsAlready', ()=>{ 
+        console.log('accountExistsAlready')
+        props.setRegisterError('Sorry the Username or Email is already in use!')
       })
 
 
@@ -37,7 +37,7 @@ const LoginPage = (props: LoginPageProps) => {
       labelCol={{ span: 8 }}
       wrapperCol={{ span: 16 }}
       initialValues={{ remember: true }}
-      onValuesChange={() => props.setLoginError('')}
+      onValuesChange={() => props.setRegisterError('')}
       onFinish={onFinish}
       onFinishFailed={onFinishFailed}
     >
@@ -49,6 +49,16 @@ const LoginPage = (props: LoginPageProps) => {
         <Input />
       </Form.Item>
 
+      
+      <Form.Item
+        label="Username"
+        name="username"
+        rules={[{ required: true, message: 'Please input your Username!' }]}
+      >
+        <Input />
+      </Form.Item>
+
+
       <Form.Item
         label="Password"
         name="password"
@@ -57,13 +67,18 @@ const LoginPage = (props: LoginPageProps) => {
         <Input.Password />
       </Form.Item>
 
-      <Form.Item name="remember" valuePropName="checked" wrapperCol={{ offset: 8, span: 16 }}>
-        <Checkbox>Remember me</Checkbox>
+      
+      <Form.Item
+        label="Repeat password"
+        name="password2"
+        rules={[{ required: true, message: 'Please repeat your password!' }]}
+      >
+        <Input.Password />
       </Form.Item>
 
       <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
         <Button type="primary" htmlType="submit">
-          Submit
+          Register
         </Button>
       </Form.Item>
     </Form>

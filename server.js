@@ -14,9 +14,13 @@ const checkIfAccountInfoIsValid = require('./server-js/account/validation/checkI
 const checkIfAccountAlreadyExists = require('./server-js/account/validation/checkIfAccountAlreadyExists')
 const userLoggedIn = require('./server-js/account/login/loginUser')
 
-//const createTableIfNoneExists = 'CREATE TABLE `'+ mysqlConfig.database +'`.`accounts` ( `id` INT NOT NULL AUTO_INCREMENT , `username` VARCHAR(64) NOT NULL , `password` VARCHAR(64) NOT NULL , `adminLevel` VARCHAR(64) NOT NULL ,  `email` VARCHAR(64) NOT NULL, `session` VARCHAR(64) NOT NULL , `discordId` VARCHAR(64) NOT NULL , `session_expiry` VARCHAR(64) NOT NULL , `levels` VARCHAR(64) NOT NULL , `stat_points` VARCHAR(64) NOT NULL , `hp` VARCHAR(64) NOT NULL , `max_hp` VARCHAR(64) NOT NULL , `mana` VARCHAR(64) NOT NULL , `max_mana` VARCHAR(64) NOT NULL , `stamina` VARCHAR(64) NOT NULL , `max_stamina` VARCHAR(64) NOT NULL , `coins` VARCHAR(64) NOT NULL , `gems` VARCHAR(64) NOT NULL , `strength` VARCHAR(64) NOT NULL, `vitality` VARCHAR(64) NOT NULL, `dextirity` VARCHAR(64) NOT NULL, `inteligence` VARCHAR(64) NOT NULL, `inventory_id` VARCHAR(64) NOT NULL , PRIMARY KEY (`id`))'
+const createTableSQL = 'CREATE TABLE `'+ mysqlConfig.database +'`.`accounts` ( `id` INT NOT NULL AUTO_INCREMENT , `username` VARCHAR(64) NOT NULL , `password` VARCHAR(64) NOT NULL , `adminLevel` VARCHAR(64) NOT NULL ,  `email` VARCHAR(64) NOT NULL, `session` VARCHAR(64) NOT NULL , `discordId` VARCHAR(64) NOT NULL , `session_expiry` VARCHAR(64) NOT NULL , `levels` VARCHAR(64) NOT NULL , `stat_points` VARCHAR(64) NOT NULL , `hp` VARCHAR(64) NOT NULL , `max_hp` VARCHAR(64) NOT NULL , `mana` VARCHAR(64) NOT NULL , `max_mana` VARCHAR(64) NOT NULL , `stamina` VARCHAR(64) NOT NULL , `max_stamina` VARCHAR(64) NOT NULL , `coins` VARCHAR(64) NOT NULL , `gems` VARCHAR(64) NOT NULL , `strength` VARCHAR(64) NOT NULL, `vitality` VARCHAR(64) NOT NULL, `dextirity` VARCHAR(64) NOT NULL, `inteligence` VARCHAR(64) NOT NULL, `inventory_id` VARCHAR(64) NOT NULL , PRIMARY KEY (`id`))'
 
-//executeMysqlQuery(createTableIfNoneExists, "Created a mysql table for accounts if there wasn't one")
+executeMysqlQuery(`SHOW TABLES LIKE 'accounts'`, '', (result) => {
+  if(result[0]) return;
+  executeMysqlQuery(createTableSQL, '' , () => { console.log("New table created")})
+})
+
 
 io.on('connection', (socket) => {
   console.log('User has connected to server: '+socket.id)

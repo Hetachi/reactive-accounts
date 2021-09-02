@@ -1,5 +1,11 @@
-.login-wrapper {
-    max-width: 25%;
-    margin: 0 auto;
-    padding-top: 50px;
+.main-menu__ {
+    &login-container {
+        max-width: 70%;
+        margin: 4% auto;
+    }
+
+    &register-container {
+        max-width: 70%;
+        margin: 4% auto;
+    }
 }
